@@ -8,7 +8,7 @@ export const useDataSource = defineStore('dataSource', {
 
   actions: {
     createPost(post: any) {
-      post.id = Math.random().toString(36).substr(2, 9);
+      post.id = 'YYYMM' + Math.random();
 
       this.dataSource.posts.push(post);
       const thread = this.dataSource.threads.find(
