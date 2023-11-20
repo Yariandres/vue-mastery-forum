@@ -7,12 +7,12 @@ export const useDataSource = defineStore('dataSource', {
   }),
 
   actions: {
-    createPost(post: any, threadId: string) {
+    createPost(post: any) {
       post.id = Math.random().toString(36).substr(2, 9);
 
       this.dataSource.posts.push(post);
       const thread = this.dataSource.threads.find(
-        (thread) => thread.id === threadId
+        (thread) => thread.id === post.threadId
       );
       if (thread) {
         thread.posts.push(post.id);
