@@ -2,14 +2,20 @@
 import { RouterLink } from 'vue-router';
 defineProps<{
   forums: any;
-  categoryName: string;
+  title: string;
+  categoryId?: string;
 }>();
 </script>
 <template>
   <div class="col-full">
     <div class="forum-list">
       <div class="list-title">
-        <a href="#">{{ categoryName ? categoryName : 'Forums' }}</a>
+        <router-link
+          v-if="categoryId"
+          :to="{ name: 'Category', params: { id: categoryId } }"
+          >{{ title }}</router-link
+        >
+        <span v-else>{{ title }}</span>
       </div>
       <div class="forum-listing" v-for="forum in forums" :key="forum.id">
         <div class="forum-details">

@@ -11,10 +11,15 @@ const routes = [
   {
     path: '/forum/:id',
     name: 'Forum',
-    component: PagesForum,
+    component: () => import('../components/pages/PagesForum.vue'),
     props: true,
   },
-
+  {
+    path: '/category/:id',
+    name: 'Category',
+    component: () => import('../components/pages/PagesCategory.vue'),
+    props: true,
+  },
   {
     path: '/thread/:id',
     name: 'ThreadShow',
