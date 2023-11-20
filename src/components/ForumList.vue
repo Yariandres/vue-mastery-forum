@@ -2,11 +2,15 @@
 import { RouterLink } from 'vue-router';
 defineProps<{
   forums: any;
+  categoryName: string;
 }>();
 </script>
 <template>
   <div class="col-full">
     <div class="forum-list">
+      <div class="list-title">
+        <a href="#">{{ categoryName ? categoryName : 'Forums' }}</a>
+      </div>
       <div class="forum-listing" v-for="forum in forums" :key="forum.id">
         <div class="forum-details">
           <router-link
