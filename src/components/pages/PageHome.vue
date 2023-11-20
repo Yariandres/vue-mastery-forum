@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import CategoryList from '../CategoryList.vue';
-import sourceData from '../../data.json';
+import { storeToRefs } from 'pinia';
+import { useDataSource } from '../../store/forumData';
 
-const categories = ref(sourceData.categories);
+const store = useDataSource();
+const { dataSource } = storeToRefs(store);
+
+const categories = ref(dataSource.value.categories);
 </script>
 
 <template>
