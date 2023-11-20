@@ -7,6 +7,6 @@ import router from './router';
 const pinia = createPinia();
 const forumApp = createApp(App);
 
-forumApp.use(pinia);
 forumApp.use(router);
+forumApp.use(pinia);
 forumApp.mount('#app');
