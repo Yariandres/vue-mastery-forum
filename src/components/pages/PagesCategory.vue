@@ -23,6 +23,5 @@ const getForumsForCategory = (category: any) => {
 </script>
 <template>
   <h1>{{ category?.name }}</h1>
-  <ForumList :title="category.name" :forums="getForumsForCategory(category)" />
+  <ForumList :title="category?.name" :forums="getForumsForCategory(category)" />
 </template>
-../../store/dataSource

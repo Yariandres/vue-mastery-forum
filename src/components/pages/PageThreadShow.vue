@@ -21,15 +21,17 @@ const props = defineProps<{
   id: string;
 }>();
 
-const threads = ref(dataSource.value.threads);
-const posts = ref(dataSource.value.posts);
+// const threads = ref(dataSource.value.threads);
+// const posts = ref(dataSource.value.posts);
 
 const thread = computed<any>(() => {
-  return threads.value.find((thread) => thread.id === props.id);
+  return dataSource.value.threads.find((thread) => thread.id === props.id);
 });
 
 const threadPosts = computed<any>(() => {
-  return posts.value.filter((post: any) => post.threadId === props.id);
+  return dataSource.value.posts.filter(
+    (post: any) => post.threadId === props.id
+  );
 });
 
 const addPost = (eventData: EventData) => {
@@ -38,7 +40,7 @@ const addPost = (eventData: EventData) => {
     threadId: props.id,
   };
 
-  posts.value.push(post);
+  dataSource.value.posts.push(post);
   thread.value.posts.push(post.id);
 };
 </script>
