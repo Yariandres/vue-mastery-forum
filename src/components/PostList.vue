@@ -1,16 +1,21 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
-import sourceData from '../data.json';
 import AppDate from './AppDate.vue';
+
+import { storeToRefs } from 'pinia';
+import { useDataSource } from '../store/dataSource';
+
+const store = useDataSource();
+const { dataSource } = storeToRefs(store);
 
 defineProps<{
   posts: Array<any>;
 }>();
 
-const users = ref(sourceData.users);
+const users = ref(dataSource.value.users);
 
 function userById(userId: string) {
-  return users.value.find((u) => u.id === userId);
+  return users.value.find((u: any) => u.id === userId);
 }
 </script>
 

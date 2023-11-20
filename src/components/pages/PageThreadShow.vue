@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import PostList from '../PostList.vue';
-import sourceData from '../../data.json';
 import PostEditor from '../PostEditor.vue';
+import { storeToRefs } from 'pinia';
+import { useDataSource } from '../../store/dataSource';
+
+const store = useDataSource();
+const { dataSource } = storeToRefs(store);
 
 interface EventData {
   post: {
@@ -17,8 +21,8 @@ const props = defineProps<{
   id: string;
 }>();
 
-const threads = ref(sourceData.threads);
-const posts = ref(sourceData.posts);
+const threads = ref(dataSource.value.threads);
+const posts = ref(dataSource.value.posts);
 
 const thread = computed<any>(() => {
   return threads.value.find((thread) => thread.id === props.id);

@@ -1,14 +1,19 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-
-import sourceData from '../data.json';
 import AddpDate from './AppDate.vue';
+
+import { storeToRefs } from 'pinia';
+import { useDataSource } from '../store/dataSource';
+
+const store = useDataSource();
+const { dataSource } = storeToRefs(store);
+// import sourceData from '../data.json';
 
 defineProps<{
   threads: any;
 }>();
 
-const users = ref(sourceData.users);
+const users = ref(dataSource.value.users);
 
 function userById(userId: string) {
   return users.value.find((u) => u.id === userId);
@@ -28,7 +33,7 @@ function userById(userId: string) {
           </p>
 
           <p class="text-faded text-xsmall">
-            By <a href="#">{{ userById(thread.userId).name }}</a
+            By <a href="#">{{ userById(thread.userId)?.name }}</a
             >,
             <AddpDate :timestamp="thread.publishedAt" />
           </p>
@@ -37,11 +42,11 @@ function userById(userId: string) {
         <div class="activity">
           <p class="replies-count">{{ thread.posts.length }} Replies</p>
 
-          <img class="avatar-medium" :src="userById(thread.userId).avatar" />
+          <img class="avatar-medium" :src="userById(thread.userId)?.avatar" />
 
           <div>
             <p class="text-xsmall">
-              <a href="#">{{ userById(thread.userId).name }}</a>
+              <a href="#">{{ userById(thread.userId)?.name }}</a>
             </p>
             <AddpDate :timestamp="thread.publishedAt" class="text-xsmall" />
           </div>

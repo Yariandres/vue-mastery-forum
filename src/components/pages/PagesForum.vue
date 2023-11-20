@@ -1,17 +1,24 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import ThreadList from '../ThreadList.vue';
-import sourceData from '../../data.json';
+import { storeToRefs } from 'pinia';
+import { useDataSource } from '../../store/dataSource';
+
+const store = useDataSource();
+const { dataSource } = storeToRefs(store);
+
 const props = defineProps<{
   id: string;
 }>();
 
 const forum = computed(() => {
-  return sourceData.forums.find((forum) => forum.id === props.id);
+  return dataSource.value.forums.find((forum) => forum.id === props.id);
 });
 
 const treads = computed(() => {
-  return sourceData.threads.filter((thread) => thread.forumId === props.id);
+  return dataSource.value.threads.filter(
+    (thread) => thread.forumId === props.id
+  );
 });
 </script>
 
