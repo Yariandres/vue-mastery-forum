@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed } from 'vue';
 import AddpDate from './AppDate.vue';
 
 import { storeToRefs } from 'pinia';
@@ -7,13 +7,14 @@ import { useDataSource } from '../store/dataSource';
 
 const store = useDataSource();
 const { dataSource } = storeToRefs(store);
-// import sourceData from '../data.json';
 
 defineProps<{
   threads: any;
 }>();
 
-const users = ref(dataSource.value.users);
+const users = computed(() => {
+  return dataSource.value.users;
+});
 
 function userById(userId: string) {
   return users.value.find((u) => u.id === userId);

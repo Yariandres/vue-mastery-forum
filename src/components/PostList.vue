@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { computed } from 'vue';
 import AppDate from './AppDate.vue';
 
 import { storeToRefs } from 'pinia';
@@ -12,7 +12,9 @@ defineProps<{
   posts: Array<any>;
 }>();
 
-const users = ref(dataSource.value.users);
+const users = computed(() => {
+  return dataSource.value.users;
+});
 
 function userById(userId: string) {
   return users.value.find((u: any) => u.id === userId);
