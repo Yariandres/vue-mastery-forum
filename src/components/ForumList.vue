@@ -2,7 +2,7 @@
 import { RouterLink } from 'vue-router';
 defineProps<{
   forums: any;
-  title: string;
+  title: string | undefined;
   categoryId?: string;
 }>();
 </script>
