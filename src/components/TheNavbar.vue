@@ -1,3 +1,10 @@
+<script lang="ts" setup>
+import { useDataSource } from '../store/dataSource';
+const store = useDataSource();
+
+const { authUser } = store;
+</script>
+
 <template>
   <header class="header" id="header">
     <router-link :to="{ name: 'Home' }">
@@ -18,11 +25,11 @@
           <a href="#">
             <img
               class="avatar-small"
-              src="https://pbs.twimg.com/profile_images/1188775562657091594/5mgkg44t_400x400.jpg"
-              alt=""
+              :src="authUser?.avatar"
+              :alt="`${authUser?.name} profile picture`"
             />
             <span>
-              Alex Kyriakidis
+              {{ authUser?.name }}
               <img
                 class="icon-profile"
                 src="../assets/img/svg/arrow-profile.svg"

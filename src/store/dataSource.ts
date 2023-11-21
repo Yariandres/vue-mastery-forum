@@ -3,8 +3,15 @@ import dataSource from '../data.json';
 
 export const useDataSource = defineStore('dataSource', {
   state: () => ({
-    dataSource: dataSource,
+    dataSource,
+    authId: 'f5xvKdIPQdSrUtT6i3UiHYttRXO2',
   }),
+
+  getters: {
+    authUser(store) {
+      return store.dataSource.users.find((user) => user.id === store.authId);
+    },
+  },
 
   actions: {
     createPost(post: any) {
