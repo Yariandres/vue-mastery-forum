@@ -1,13 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import PageHome from '../components/pages/PageHome.vue';
-import PageThreadShow from '../components/pages/PageThreadShow.vue';
-import PageNotFound from '../components/pages/PageNotFound.vue';
-import PagesForum from '../components/pages/PagesForum.vue';
-
 import sourceData from '../data.json';
 
 const routes = [
-  { path: '/', name: 'Home', component: PageHome },
+  {
+    path: '/',
+    name: 'Home',
+    component: () => import('../components/pages/PageHome.vue'),
+  },
+  {
+    path: '/me',
+    name: 'Profile',
+    component: () => import('../components/pages/PageProfile.vue'),
+  },
   {
     path: '/forum/:id',
     name: 'Forum',
@@ -23,7 +27,7 @@ const routes = [
   {
     path: '/thread/:id',
     name: 'ThreadShow',
-    component: PageThreadShow,
+    component: () => import('../components/pages/PageThreadShow.vue'),
     props: true,
     beforeEnter(to: any, _, next: any) {
       const threadExists = sourceData.threads.find(
@@ -46,7 +50,7 @@ const routes = [
   {
     path: '/:pathMatch(.*)*',
     name: 'PageNotFound',
-    component: PageNotFound,
+    component: () => import('../components/pages/PageNotFound.vue'),
   },
 ];
 

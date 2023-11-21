@@ -4,7 +4,7 @@ import dataSource from '../data.json';
 export const useDataSource = defineStore('dataSource', {
   state: () => ({
     dataSource,
-    authId: 'f5xvKdIPQdSrUtT6i3UiHYttRXO2',
+    authId: 'VXjpr2WHa8Ux4Bnggym8QFLdv5C3',
   }),
 
   getters: {
