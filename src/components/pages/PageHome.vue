@@ -11,6 +11,6 @@ const categories = computed(() => dataSource.value.categories);
 </script>
 
 <template>
-  <h1>Welcome to forum</h1>
+  <h1 class="push-top">Welcome to forum</h1>
   <category-list :categories="categories" />
 </template>
