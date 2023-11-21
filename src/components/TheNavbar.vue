@@ -22,7 +22,7 @@ const { authUser } = store;
     <nav class="navbar">
       <ul>
         <li class="navbar-user">
-          <a href="#">
+          <router-link :to="{ name: 'Profile' }">
             <img
               class="avatar-small"
               :src="authUser?.avatar"
@@ -36,7 +36,7 @@ const { authUser } = store;
                 alt=""
               />
             </span>
-          </a>
+          </router-link>
 
           <!-- dropdown menu -->
           <!-- add class "active-drop" to show the dropdown -->
