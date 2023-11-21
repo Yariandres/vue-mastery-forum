@@ -37,8 +37,7 @@ const addPost = (eventData: EventData) => {
     threadId: props.id,
   };
 
-  dataSource.value.posts.push(post);
-  thread.value.posts.push(post.id);
+  store.createPost(post);
 };
 </script>
 

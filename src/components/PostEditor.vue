@@ -26,6 +26,7 @@ const save = () => {
         cols="30"
         rows="10"
         class="form-input"
+        required
       ></textarea>
     </div>
 
