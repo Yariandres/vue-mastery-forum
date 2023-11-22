@@ -1,8 +1,14 @@
 <script lang="ts" setup>
 import UserProfileCard from '../UserProfileCard.vue';
+import UserProfileEditor from '../UserProfileEditor.vue';
+
 import PostList from '../PostList.vue';
 import { useDataSource } from '../../store/dataSource';
 const store = useDataSource();
+
+defineProps<{
+  edit: boolean;
+}>();
 
 const { authUser, userPosts, userPostsCount, userThreadsCount } = store;
 </script>
@@ -10,6 +16,13 @@ const { authUser, userPosts, userPostsCount, userThreadsCount } = store;
   <div class="flex-grid">
     <div class="col-3 push-top">
       <user-profile-card
+        v-if="!edit"
+        :user="authUser"
+        :userPostsCount="userPostsCount"
+        :userThreadsCount="userThreadsCount"
+      />
+      <user-profile-editor
+        v-else
         :user="authUser"
         :userPostsCount="userPostsCount"
         :userThreadsCount="userThreadsCount"
@@ -17,11 +30,6 @@ const { authUser, userPosts, userPostsCount, userThreadsCount } = store;
       <p class="text-xsmall text-faded text-center">
         Member since june 2003, last visited 4 hours ago
       </p>
-
-      <div class="text-center">
-        <hr />
-        <a href="edit-profile.html" class="btn-green btn-small">Edit Profile</a>
-      </div>
     </div>
 
     <div class="col-7 push-top">

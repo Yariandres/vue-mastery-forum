@@ -13,6 +13,12 @@ const routes = [
     component: () => import('../components/pages/PageProfile.vue'),
   },
   {
+    path: '/me/edit',
+    name: 'ProfileEdit',
+    component: () => import('../components/pages/PageProfile.vue'),
+    props: { edit: true },
+  },
+  {
     path: '/forum/:id',
     name: 'Forum',
     component: () => import('../components/pages/PagesForum.vue'),
