@@ -1,5 +1,8 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { computed } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 import { useDataSource } from '../store/dataSource';
 const store = useDataSource();
@@ -10,10 +13,15 @@ const props = defineProps<{
   userThreadsCount: number;
 }>();
 
-const activeUser = ref({ ...props.user });
+const activeUser = computed(() => ({ ...props.user }));
 
 const saveChanges = () => {
   store.updateUser({ ...activeUser.value });
+  router.push({ name: 'Profile' });
+};
+
+const cancel = () => {
+  router.push({ name: 'Profile' });
 };
 </script>
 <template>
@@ -85,7 +93,7 @@ const saveChanges = () => {
       </div>
       <hr />
       <div class="btn-group space-between">
-        <button class="btn-ghost">Cancel</button>
+        <button class="btn-ghost" @click="cancel">Cancel</button>
         <button type="submit" class="btn-blue">Save</button>
       </div>
     </form>
