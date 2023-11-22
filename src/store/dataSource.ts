@@ -11,6 +11,26 @@ export const useDataSource = defineStore('dataSource', {
     authUser(store) {
       return store.dataSource.users.find((user) => user.id === store.authId);
     },
+
+    userPosts(store) {
+      return store.dataSource.posts.filter(
+        (post) => post.userId === store.authId
+      );
+    },
+
+    userThreads(store) {
+      return store.dataSource.threads.filter(
+        (thread) => thread.userId === store.authId
+      );
+    },
+
+    userPostsCount() {
+      return this.userPosts.length;
+    },
+
+    userThreadsCount() {
+      return this.userThreads.length;
+    },
   },
 
   actions: {
