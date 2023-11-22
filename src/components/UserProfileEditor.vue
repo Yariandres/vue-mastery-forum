@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 
+import { useDataSource } from '../store/dataSource';
+const store = useDataSource();
+
 const props = defineProps<{
   user: any;
   userPostsCount: number;
@@ -10,8 +13,7 @@ const props = defineProps<{
 const activeUser = ref({ ...props.user });
 
 const saveChanges = () => {
-  console.log('Saving changes...');
-  console.log(activeUser.value);
+  store.updateUser({ ...activeUser.value });
 };
 </script>
 <template>
@@ -81,7 +83,7 @@ const saveChanges = () => {
         <span>{{ userPostsCount }} posts</span>
         <span>{{ userThreadsCount }} threads</span>
       </div>
-
+      <hr />
       <div class="btn-group space-between">
         <button class="btn-ghost">Cancel</button>
         <button type="submit" class="btn-blue">Save</button>

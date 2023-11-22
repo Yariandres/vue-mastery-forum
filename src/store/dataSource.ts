@@ -45,5 +45,13 @@ export const useDataSource = defineStore('dataSource', {
         thread.posts.push(post.id);
       }
     },
+
+    updateUser(user: any) {
+      const userIndex = this.dataSource.users.findIndex(
+        (userItem) => userItem.id === user.id
+      );
+
+      this.dataSource.users[userIndex] = user;
+    },
   },
 });

@@ -6,7 +6,8 @@ import PostList from '../PostList.vue';
 import { useDataSource } from '../../store/dataSource';
 const store = useDataSource();
 
-const { authUser, userPosts, userPostsCount, userThreadsCount } = store;
+const { authUser, userPosts, userPostsCount, userThreadsCount, updateUser } =
+  store;
 </script>
 <template>
   <div class="flex-grid">
