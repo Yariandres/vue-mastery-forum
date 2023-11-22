@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import UserProfileCard from '../UserProfileCard.vue';
+import UserProfileEditor from '../UserProfileEditor.vue';
+
 import PostList from '../PostList.vue';
 import { useDataSource } from '../../store/dataSource';
 const store = useDataSource();
@@ -10,6 +12,11 @@ const { authUser, userPosts, userPostsCount, userThreadsCount } = store;
   <div class="flex-grid">
     <div class="col-3 push-top">
       <user-profile-card
+        :user="authUser"
+        :userPostsCount="userPostsCount"
+        :userThreadsCount="userThreadsCount"
+      />
+      <user-profile-editor
         :user="authUser"
         :userPostsCount="userPostsCount"
         :userThreadsCount="userThreadsCount"
