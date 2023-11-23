@@ -8,7 +8,11 @@ const { authUser } = store;
 <template>
   <header class="header" id="header">
     <router-link :to="{ name: 'Home' }">
-      <img class="logo" src="../assets/img/svg/vueschool-logo.svg" alt="" />
+      <img
+        class="logo"
+        src="../assets/img/svg/vueschool-logo.svg"
+        alt="logo icon"
+      />
     </router-link>
 
     <div class="btn-hamburger">
