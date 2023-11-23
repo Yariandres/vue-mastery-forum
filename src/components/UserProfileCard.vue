@@ -1,12 +1,7 @@
 <script lang="ts" setup>
 import { useDataSource } from '../store/dataSource';
 const store = useDataSource();
-const { authUser } = store;
-
-defineProps<{
-  userPostsCount: number;
-  userThreadsCount: number;
-}>();
+const { authUser, userPostsCount, userThreadsCount } = store;
 </script>
 
 <template>
@@ -33,7 +28,7 @@ defineProps<{
 
     <p v-if="authUser?.website" class="text-large text-center">
       <i class="fa fa-globe"></i>
-      <a :href="authUser?.website">{{ user?.website }}</a>
+      <a :href="authUser?.website">{{ authUser?.website }}</a>
     </p>
 
     <div class="text-center">

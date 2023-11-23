@@ -7,13 +7,9 @@ const router = useRouter();
 import { useDataSource } from '../store/dataSource';
 const store = useDataSource();
 
-const props = defineProps<{
-  user: any;
-  userPostsCount: number;
-  userThreadsCount: number;
-}>();
+const { authUser, userPostsCount, userThreadsCount } = store;
 
-const activeUser = computed(() => ({ ...props.user }));
+const activeUser = computed(() => ({ ...authUser }));
 
 const saveChanges = () => {
   store.updateUser({ ...activeUser.value });
@@ -29,8 +25,8 @@ const cancel = () => {
     <form @submit.prevent="saveChanges">
       <p class="text-center">
         <img
-          :src="user.avatar"
-          :alt="`${user.name} profile picture`"
+          :src="activeUser.avatar"
+          :alt="`${activeUser.name} profile picture`"
           class="avatar-xlarge img-update"
         />
       </p>

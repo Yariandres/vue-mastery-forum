@@ -36,6 +36,8 @@ export const useDataSource = defineStore('dataSource', {
   actions: {
     createPost(post: any) {
       post.id = 'YYYMM' + Math.random();
+      post.userId = this.authId;
+      post.publishedAt = Math.floor(Date.now() / 1000);
 
       this.dataSource.posts.push(post);
       const thread = this.dataSource.threads.find(

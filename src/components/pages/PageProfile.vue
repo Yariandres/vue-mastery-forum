@@ -10,22 +10,13 @@ defineProps<{
   edit: boolean;
 }>();
 
-const { authUser, userPosts, userPostsCount, userThreadsCount } = store;
+const { userPosts, authUser } = store;
 </script>
 <template>
   <div class="flex-grid">
     <div class="col-3 push-top">
-      <user-profile-card
-        v-if="!edit"
-        :userPostsCount="userPostsCount"
-        :userThreadsCount="userThreadsCount"
-      />
-      <user-profile-editor
-        v-else
-        :user="authUser"
-        :userPostsCount="userPostsCount"
-        :userThreadsCount="userThreadsCount"
-      />
+      <user-profile-card v-if="!edit" />
+      <user-profile-editor v-else />
       <p class="text-xsmall text-faded text-center">
         Member since june 2003, last visited 4 hours ago
       </p>
@@ -33,7 +24,9 @@ const { authUser, userPosts, userPostsCount, userThreadsCount } = store;
 
     <div class="col-7 push-top">
       <div class="profile-header">
-        <span class="text-lead"> Joker's recent activity </span>
+        <span class="text-lead">
+          {{ authUser?.username }} recent activity
+        </span>
         <a href="#">See only started threads?</a>
       </div>
       <hr />

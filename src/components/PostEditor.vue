@@ -4,12 +4,8 @@ const text = ref();
 const emit = defineEmits(['update:save']);
 
 const save = () => {
-  const postId = Math.random().toString(36).substr(2, 9);
   const post = {
     text: text.value,
-    publishedAt: Math.floor(Date.now() / 1000),
-    id: postId,
-    userId: 'rpbB8C6ifrYmNDufMERWfQUoa202',
   };
 
   emit('update:save', { post });
