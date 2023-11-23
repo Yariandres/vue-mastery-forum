@@ -17,7 +17,6 @@ const { authUser, userPosts, userPostsCount, userThreadsCount } = store;
     <div class="col-3 push-top">
       <user-profile-card
         v-if="!edit"
-        :user="authUser"
         :userPostsCount="userPostsCount"
         :userThreadsCount="userThreadsCount"
       />

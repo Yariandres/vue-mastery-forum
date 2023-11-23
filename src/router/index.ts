@@ -11,6 +11,7 @@ const routes = [
     path: '/me',
     name: 'Profile',
     component: () => import('../components/pages/PageProfile.vue'),
+    meta: { toTop: true, smoothScroll: true },
   },
   {
     path: '/me/edit',
@@ -63,4 +64,11 @@ const routes = [
 export default createRouter({
   history: createWebHistory(),
   routes,
+
+  scrollBehavior(to) {
+    const scroll = <any>{};
+    if (to.meta.toTop) scroll.to = 0;
+    if (to.meta.smoothScroll) scroll.behavior = 'smooth';
+    return scroll;
+  },
 });
