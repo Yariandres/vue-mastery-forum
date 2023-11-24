@@ -34,6 +34,44 @@ export const useDataSource = defineStore('dataSource', {
   },
 
   actions: {
+    createThread({ title, text, forumId }: any) {
+      const id = 'ggg' + Math.random();
+      const userId = this.authId;
+      const publishedAt = Math.floor(Date.now() / 1000);
+
+      const thread = { forumId, title, publishedAt, userId, id };
+      this.setThreads(thread);
+      this.createPost({ text, threadId: id });
+      this.appentThreadToUser({ userId, threadId: id });
+      this.appendThreadToForum({ forumId, threadId: id });
+    },
+
+    setThreads(threads: any) {
+      this.dataSource.threads.push(threads);
+    },
+
+    appendPostToThread({ postId, threadId }: any) {
+      const thread = this.dataSource.threads.find(
+        (thread) => thread.id === threadId
+      );
+      thread.posts = thread?.posts || [];
+      thread?.posts.push(postId);
+    },
+
+    appendThreadToForum({ forumId, threadId }: any) {
+      const forum = this.dataSource.forums.find(
+        (forum) => forum.id === forumId
+      );
+      forum.threads = forum?.threads || [];
+      forum?.threads.push(threadId);
+    },
+
+    appentThreadToUser({ userId, threadId }: any) {
+      const user = this.dataSource.users.find((user) => user.id === userId);
+      user.threads = user?.threads || [];
+      user?.threads.push(threadId);
+    },
+
     createPost(post: any) {
       post.id = 'YYYMM' + Math.random();
       post.userId = this.authId;

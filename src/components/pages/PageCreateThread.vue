@@ -1,16 +1,22 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useDataSource } from '../../store/dataSource';
 
-defineProps<{
+const store = useDataSource();
+
+const props = defineProps<{
   forum: any;
 }>();
 
-const title = ref('');
-const text = ref('');
+const title = ref<string>('');
+const text = ref<string>('');
 
 const save = () => {
-  console.log(title.value, text.value);
-  // pinia action
+  store.createThread({
+    title: title.value,
+    text: text.value,
+    forumId: props.forum.id,
+  });
 };
 </script>
 <template>
