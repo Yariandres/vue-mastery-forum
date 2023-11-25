@@ -32,6 +32,12 @@ const routes = [
     props: true,
   },
   {
+    path: '/form/:forumId/thread/create',
+    name: 'ThreadCreate',
+    component: () => import('../components/pages/PageCreateThread.vue'),
+    props: true,
+  },
+  {
     path: '/thread/:id',
     name: 'ThreadShow',
     component: () => import('../components/pages/PageThreadShow.vue'),

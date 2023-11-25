@@ -29,6 +29,11 @@ const treads = computed(() => {
         <h1>{{ forum?.name }}</h1>
         <p class="text-lead">{{ forum?.description }}</p>
       </div>
+      <router-link
+        :to="{ name: 'ThreadCreate', params: { forumId: forum?.id } }"
+        class="btn-green btn-small"
+        >Start a thread</router-link
+      >
     </div>
   </div>
 
