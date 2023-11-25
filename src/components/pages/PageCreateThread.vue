@@ -1,28 +1,32 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useDataSource } from '../../store/dataSource';
 
 const store = useDataSource();
 
 const props = defineProps<{
-  forum: any;
+  forumId: string;
 }>();
 
 const title = ref<string>('');
 const text = ref<string>('');
 
+const forum = computed(() => {
+  return store.dataSource.forums.find((forum) => forum.id === props.forumId);
+});
+
 const save = () => {
   store.createThread({
     title: title.value,
     text: text.value,
-    forumId: props.forum.id,
+    forumId: forum.value?.id,
   });
 };
 </script>
 <template>
   <div class="col-full push-top">
     <h1>
-      Create new thread in <i>{{ forum.name }}</i>
+      Create new thread in <i>{{ forum?.name }}</i>
     </h1>
 
     <form @submit.prevent="save">
