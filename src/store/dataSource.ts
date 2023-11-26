@@ -42,8 +42,18 @@ export const useDataSource = defineStore('dataSource', {
       const thread = { forumId, title, publishedAt, userId, id };
       this.setThreads(thread);
 
-      this.appentThreadToUser({ userId, threadId: id });
+      const post = {
+        text,
+        publishedAt,
+        threadId: id,
+        id,
+        userId,
+      };
+
+      this.createPost({ ...post });
       this.appendThreadToForum({ forumId, threadId: id });
+
+      this.appentThreadToUser({ userId, threadId: id });
     },
 
     setThreads(threads: any) {
@@ -63,6 +73,8 @@ export const useDataSource = defineStore('dataSource', {
       const forum = this.dataSource.forums.find(
         (forum) => forum.id === forumId
       );
+      console.log(forum);
+
       if (!forum) return;
       forum.threads = forum?.threads || [];
       forum?.threads.push(threadId);
@@ -88,7 +100,7 @@ export const useDataSource = defineStore('dataSource', {
       );
 
       if (thread) {
-        thread.posts.push(post.id);
+        this.dataSource.threads.push(post.id);
       }
     },
 
