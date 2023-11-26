@@ -41,7 +41,10 @@ function userById(userId: string) {
         </div>
 
         <div class="activity">
-          <p class="replies-count">{{ thread.posts.length }} Replies</p>
+          <p class="replies-count">
+            {{ thread.posts?.length || 0 }}
+            {{ thread.posts?.length === 1 ? ' Reply' : ' Replies' }}
+          </p>
 
           <img class="avatar-medium" :src="userById(thread.userId)?.avatar" />
 
