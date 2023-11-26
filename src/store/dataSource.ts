@@ -64,6 +64,7 @@ export const useDataSource = defineStore('dataSource', {
       const thread = this.dataSource.threads.find(
         (thread) => thread.id === threadId
       );
+
       if (!thread) return;
       thread.posts = thread?.posts || [];
       thread?.posts.push(postId);
@@ -73,11 +74,10 @@ export const useDataSource = defineStore('dataSource', {
       const forum = this.dataSource.forums.find(
         (forum) => forum.id === forumId
       );
-      console.log(forum);
 
       if (!forum) return;
       forum.threads = forum?.threads || [];
-      forum?.threads.push(threadId);
+      forum.threads?.push(threadId);
     },
 
     appentThreadToUser({ userId, threadId }: any) {
