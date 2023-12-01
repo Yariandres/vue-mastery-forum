@@ -34,7 +34,7 @@ export const useDataSource = defineStore('dataSource', {
   },
 
   actions: {
-    createThread({ title, text, forumId }: any) {
+    async createThread({ title, text, forumId }: any) {
       const id = 'ggg' + Math.random();
       const userId = this.authId;
       const publishedAt = Math.floor(Date.now() / 1000);
@@ -52,8 +52,9 @@ export const useDataSource = defineStore('dataSource', {
 
       this.createPost({ ...post });
       this.appendThreadToForum({ forumId, threadId: id });
-
       this.appentThreadToUser({ userId, threadId: id });
+
+      return this.dataSource.threads.find((thread) => thread.id === id);
     },
 
     setThreads(threads: any) {

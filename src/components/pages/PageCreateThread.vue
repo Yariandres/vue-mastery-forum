@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { useDataSource } from '../../store/dataSource';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const store = useDataSource();
 
 const props = defineProps<{
@@ -15,12 +17,17 @@ const forum = computed(() => {
   return store.dataSource.forums.find((forum) => forum.id === props.forumId);
 });
 
-const save = () => {
-  store.createThread({
+const save = async () => {
+  const thread = await store.createThread({
     title: title.value,
     text: text.value,
     forumId: forum.value?.id,
   });
+  router.push({ name: 'ThreadShow', params: { id: thread?.id } });
+};
+
+const cancel = () => {
+  router.push({ name: 'Forum', params: { id: forum.value?.id } });
 };
 </script>
 <template>
@@ -51,7 +58,7 @@ const save = () => {
         />
       </div>
       <div class="form-group">
-        <button class="btn btn-ghost">Cancel</button>
+        <button @click="cancel" class="btn btn-ghost">Cancel</button>
         <button type="submit" class="btn btn-blue">Publish</button>
       </div>
     </form>
