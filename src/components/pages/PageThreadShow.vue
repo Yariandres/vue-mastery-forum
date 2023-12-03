@@ -43,7 +43,9 @@ const addPost = (eventData: EventData) => {
 
 <template>
   <div v-if="thread" class="col-large push-top">
-    <h1>{{ thread.title }}</h1>
+    <h1>
+      {{ thread.title }}
+    </h1>
     <post-list :posts="threadPosts" />
 
     <div class="col-full">
