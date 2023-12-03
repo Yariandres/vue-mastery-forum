@@ -17,6 +17,12 @@ const thread = computed(() => {
   );
 });
 
+const text = computed(() => {
+  return store.dataSource.posts.find(
+    (post) => post.id === thread.value?.posts[0]
+  )?.text;
+});
+
 const save = async ({ title, text }: { title: string; text: string }) => {
   const thread = await store.createThread({
     title,
@@ -35,15 +41,13 @@ const cancel = () => {
   <div class="col-full push-top">
     <h1>
       Editing <i>{{ thread?.title }}</i>
-
-      <!-- <router-link
-        :to="{ name: 'ThreadEdit', params: { id: thread.id } }"
-        class="btn-green btn-small"
-        tag="button"
-      >
-      </router-link> -->
     </h1>
 
-    <thread-editor @save="save" @cancel="cancel" />
+    <thread-editor
+      @save="save"
+      @cancel="cancel"
+      :text="text"
+      :title="thread?.title"
+    />
   </div>
 </template>
