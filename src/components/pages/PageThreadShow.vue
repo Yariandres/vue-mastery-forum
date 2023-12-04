@@ -45,6 +45,13 @@ const addPost = (eventData: EventData) => {
   <div v-if="thread" class="col-large push-top">
     <h1>
       {{ thread.title }}
+      <router-link
+        :to="{ name: 'ThreadEdit', params: { id: thread.id } }"
+        class="btn-green btn-small"
+        tag="button"
+      >
+        Edit Thread
+      </router-link>
     </h1>
     <post-list :posts="threadPosts" />
 
