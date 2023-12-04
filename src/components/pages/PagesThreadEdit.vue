@@ -8,13 +8,11 @@ const router = useRouter();
 const store = useDataSource();
 
 const props = defineProps<{
-  threadId: string;
+  id: string;
 }>();
 
 const thread = computed(() => {
-  return store.dataSource.threads.find(
-    (thread) => thread.id === props.threadId
-  );
+  return store.dataSource.threads.find((thread) => thread.id === props.id);
 });
 
 const text = computed(() => {
@@ -24,17 +22,17 @@ const text = computed(() => {
 });
 
 const save = async ({ title, text }: { title: string; text: string }) => {
-  const thread = await store.createThread({
+  const thread = await store.updateThread({
+    forumId: props.id,
     title,
     text,
-    forumId: forum.value?.id,
   });
 
   router.push({ name: 'ThreadShow', params: { id: thread?.id } });
 };
 
 const cancel = () => {
-  router.push({ name: 'Forum', params: { id: forum.value?.id } });
+  router.push({ name: 'Forum', params: { id: thread.value?.id } });
 };
 </script>
 <template>

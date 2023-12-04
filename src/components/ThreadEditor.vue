@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { reactive, ref } from 'vue';
 import { defineEmits } from 'vue';
 
 const emit = defineEmits<{
@@ -7,11 +7,21 @@ const emit = defineEmits<{
   (event: 'cancel'): void;
 }>();
 
-const title = ref<string>('');
-const text = ref<string>('');
+const props = defineProps<{
+  title?: string;
+  text?: string;
+}>();
+
+const form = reactive<{
+  title: string;
+  text: string;
+}>({
+  title: props.title || '',
+  text: props.text || '',
+});
 
 const save = () => {
-  emit('save', { title: title.value, text: text.value });
+  emit('save', { ...form });
 };
 </script>
 
@@ -20,7 +30,7 @@ const save = () => {
     <div class="form-group">
       <label for="thread_title">Title</label>
       <input
-        v-model="title"
+        v-model="form.title"
         type="text"
         id="thread_title"
         class="form-input"
@@ -30,7 +40,7 @@ const save = () => {
     <div class="form-group">
       <label for="thread_content">Content</label>
       <textarea
-        v-model="text"
+        v-model="form.text"
         type="text"
         id="thread_content"
         class="form-input"
