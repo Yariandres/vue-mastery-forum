@@ -103,14 +103,13 @@ export const useDataSource = defineStore('dataSource', {
 
       if (post.id && index !== -1) {
         this.dataSource.posts[index] = post;
-        return;
-      } else {
-        post.id = 'YYYMM' + Math.random();
-        post.userId = this.authId;
-        post.publishedAt = Math.floor(Date.now() / 1000);
-
-        this.dataSource.posts.push(post);
       }
+
+      post.id = 'YYYMM' + Math.random();
+      post.userId = this.authId;
+      post.publishedAt = Math.floor(Date.now() / 1000);
+
+      this.dataSource.posts.push(post);
 
       const thread = this.dataSource.threads.find(
         (thread) => thread.id === post.threadId
@@ -123,6 +122,7 @@ export const useDataSource = defineStore('dataSource', {
 
     async updateThread({ title, text, id }: any) {
       const thread = this.dataSource.threads.find((thread) => thread.id === id);
+
       const post = this.dataSource.posts.find(
         (post) => post.id === thread?.posts[0]
       );
@@ -130,7 +130,7 @@ export const useDataSource = defineStore('dataSource', {
       const newThread = { ...thread, title };
       const newPost = { ...post, text };
 
-      this.updateThread(newThread);
+      this.setThread(newThread);
       this.createPost(newPost);
 
       return newThread;

@@ -23,7 +23,7 @@ const text = computed(() => {
 
 const save = async ({ title, text }: { title: string; text: string }) => {
   const thread = await store.updateThread({
-    forumId: props.id,
+    id: props.id,
     title,
     text,
   });
@@ -32,7 +32,7 @@ const save = async ({ title, text }: { title: string; text: string }) => {
 };
 
 const cancel = () => {
-  router.push({ name: 'Forum', params: { id: thread.value?.id } });
+  router.push({ name: 'ThreadShow', params: { id: props.id } });
 };
 </script>
 <template>

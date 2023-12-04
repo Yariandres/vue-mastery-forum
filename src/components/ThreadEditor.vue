@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue';
+import { computed, reactive } from 'vue';
 import { defineEmits } from 'vue';
 
 const emit = defineEmits<{
@@ -23,6 +23,10 @@ const form = reactive<{
 const save = () => {
   emit('save', { ...form });
 };
+
+const existing = computed(() => {
+  return !!props.title;
+});
 </script>
 
 <template>
@@ -49,7 +53,9 @@ const save = () => {
     </div>
     <div class="form-group">
       <button @click="emit('cancel')" class="btn btn-ghost">Cancel</button>
-      <button type="submit" class="btn btn-blue">Publish</button>
+      <button type="submit" class="btn btn-blue">
+        {{ existing ? 'Update' : 'Publish' }}
+      </button>
     </div>
   </form>
 </template>
