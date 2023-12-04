@@ -40,7 +40,7 @@ export const useDataSource = defineStore('dataSource', {
       const publishedAt = Math.floor(Date.now() / 1000);
 
       const thread = { forumId, title, publishedAt, userId, id };
-      this.setThreads(thread);
+      this.setThread(thread);
 
       const post = {
         text,
@@ -55,10 +55,6 @@ export const useDataSource = defineStore('dataSource', {
       this.appentThreadToUser({ userId, threadId: id });
 
       return this.dataSource.threads.find((thread) => thread.id === id);
-    },
-
-    setThreads(threads: any) {
-      this.dataSource.threads.push(threads);
     },
 
     appendPostToThread({ postId, threadId }: any) {
@@ -89,12 +85,32 @@ export const useDataSource = defineStore('dataSource', {
       user?.threads.push(threadId);
     },
 
-    createPost(post: any) {
-      post.id = 'YYYMM' + Math.random();
-      post.userId = this.authId;
-      post.publishedAt = Math.floor(Date.now() / 1000);
+    setThread(threads: any) {
+      const index = this.dataSource.threads.findIndex(
+        (t) => t.id === threads.id
+      );
 
-      this.dataSource.posts.push(post);
+      if (threads.id && index !== -1) {
+        this.dataSource.threads[index] = threads;
+        return;
+      } else {
+        this.dataSource.threads.push(threads);
+      }
+    },
+
+    createPost(post: any) {
+      const index = this.dataSource.posts.findIndex((p) => p.id === post.id);
+
+      if (post.id && index !== -1) {
+        this.dataSource.posts[index] = post;
+        return;
+      } else {
+        post.id = 'YYYMM' + Math.random();
+        post.userId = this.authId;
+        post.publishedAt = Math.floor(Date.now() / 1000);
+
+        this.dataSource.posts.push(post);
+      }
 
       const thread = this.dataSource.threads.find(
         (thread) => thread.id === post.threadId
@@ -103,6 +119,21 @@ export const useDataSource = defineStore('dataSource', {
       if (thread) {
         this.dataSource.threads.push(post.id);
       }
+    },
+
+    async updateThread({ title, text, id }: any) {
+      const thread = this.dataSource.threads.find((thread) => thread.id === id);
+      const post = this.dataSource.posts.find(
+        (post) => post.id === thread?.posts[0]
+      );
+
+      const newThread = { ...thread, title };
+      const newPost = { ...post, text };
+
+      this.updateThread(newThread);
+      this.createPost(newPost);
+
+      return newThread;
     },
 
     updateUser(user: any) {
