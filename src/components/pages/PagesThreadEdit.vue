@@ -3,6 +3,7 @@ import { computed } from 'vue';
 import { useDataSource } from '../../store/dataSource';
 import { useRouter } from 'vue-router';
 import ThreadEditor from '../ThreadEditor.vue';
+import findById from '../../helpers/findById';
 
 const router = useRouter();
 const store = useDataSource();
@@ -12,7 +13,7 @@ const props = defineProps<{
 }>();
 
 const thread = computed(() => {
-  return store.dataSource.threads.find((thread) => thread.id === props.id);
+  return findById(store.dataSource.threads, props.id);
 });
 
 const text = computed(() => {

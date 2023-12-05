@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import AddpDate from './AppDate.vue';
+import findById from '../helpers/findById';
 
 import { storeToRefs } from 'pinia';
 import { useDataSource } from '../store/dataSource';
@@ -17,7 +18,7 @@ const users = computed(() => {
 });
 
 function userById(userId: string) {
-  return users.value.find((u) => u.id === userId);
+  return findById(users.value, userId);
 }
 </script>
 <template>

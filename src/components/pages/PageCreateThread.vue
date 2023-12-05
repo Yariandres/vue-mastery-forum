@@ -3,6 +3,7 @@ import { computed } from 'vue';
 import { useDataSource } from '../../store/dataSource';
 import { useRouter } from 'vue-router';
 import ThreadEditor from '../ThreadEditor.vue';
+import findById from '../../helpers/findById';
 
 const router = useRouter();
 const store = useDataSource();
@@ -12,7 +13,7 @@ const props = defineProps<{
 }>();
 
 const forum = computed(() => {
-  return store.dataSource.forums.find((forum) => forum.id === props.forumId);
+  return findById(store.dataSource.forums, props.forumId);
 });
 
 const save = async ({ title, text }: { title: string; text: string }) => {

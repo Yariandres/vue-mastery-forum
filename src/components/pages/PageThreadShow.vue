@@ -4,6 +4,7 @@ import PostList from '../PostList.vue';
 import PostEditor from '../PostEditor.vue';
 import { storeToRefs } from 'pinia';
 import { useDataSource } from '../../store/dataSource';
+import findById from '../../helpers/findById';
 
 const store = useDataSource();
 const { dataSource } = storeToRefs(store);
@@ -22,7 +23,7 @@ const props = defineProps<{
 }>();
 
 const thread = computed<any>(() => {
-  return dataSource.value.threads.find((thread) => thread.id === props.id);
+  return findById(dataSource.value.threads, props.id);
 });
 
 const threadPosts = computed<any>(() => {
