@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import dataSource from '../data.json';
+import findById from '../helpers/findById';
 
 export const useDataSource = defineStore('dataSource', {
   state: () => ({
@@ -9,7 +10,7 @@ export const useDataSource = defineStore('dataSource', {
 
   getters: {
     authUser(store) {
-      return store.dataSource.users.find((user) => user.id === store.authId);
+      return findById(store.dataSource.users, store.authId);
     },
 
     userPosts(store) {
@@ -54,13 +55,11 @@ export const useDataSource = defineStore('dataSource', {
       this.appendThreadToForum({ forumId, threadId: id });
       this.appentThreadToUser({ userId, threadId: id });
 
-      return this.dataSource.threads.find((thread) => thread.id === id);
+      return findById(this.dataSource.threads, id);
     },
 
     appendPostToThread({ postId, threadId }: any) {
-      const thread = this.dataSource.threads.find(
-        (thread) => thread.id === threadId
-      );
+      const thread = findById(this.dataSource.threads, threadId);
 
       if (!thread) return;
       thread.posts = thread?.posts || [];
@@ -68,9 +67,7 @@ export const useDataSource = defineStore('dataSource', {
     },
 
     appendThreadToForum({ forumId, threadId }: any) {
-      const forum = this.dataSource.forums.find(
-        (forum) => forum.id === forumId
-      );
+      const forum = findById(this.dataSource.forums, forumId);
 
       if (!forum) return;
       forum.threads = forum?.threads || [];
@@ -78,7 +75,7 @@ export const useDataSource = defineStore('dataSource', {
     },
 
     appentThreadToUser({ userId, threadId }: any) {
-      const user = this.dataSource.users.find((user) => user.id === userId);
+      const user = findById(this.dataSource.users, userId);
       if (!user) return;
 
       user.threads = user?.threads || [];
@@ -111,9 +108,7 @@ export const useDataSource = defineStore('dataSource', {
 
       this.dataSource.posts.push(post);
 
-      const thread = this.dataSource.threads.find(
-        (thread) => thread.id === post.threadId
-      );
+      const thread = findById(this.dataSource.threads, post.threadId);
 
       if (thread) {
         this.dataSource.threads.push(post.id);
@@ -121,11 +116,9 @@ export const useDataSource = defineStore('dataSource', {
     },
 
     async updateThread({ title, text, id }: any) {
-      const thread = this.dataSource.threads.find((thread) => thread.id === id);
+      const thread = findById(this.dataSource.threads, id);
 
-      const post = this.dataSource.posts.find(
-        (post) => post.id === thread?.posts[0]
-      );
+      const post = findById(this.dataSource.posts, thread.posts[0]);
 
       const newThread = { ...thread, title };
       const newPost = { ...post, text };
