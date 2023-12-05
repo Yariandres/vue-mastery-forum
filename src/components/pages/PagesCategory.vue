@@ -3,6 +3,7 @@ import { computed } from 'vue';
 import ForumList from '../ForumList.vue';
 import { storeToRefs } from 'pinia';
 import { useDataSource } from '../../store/dataSource';
+import findById from '../../helpers/findById';
 
 const store = useDataSource();
 const { dataSource } = storeToRefs(store);
@@ -12,7 +13,7 @@ const props = defineProps<{
 }>();
 
 const category = computed(() =>
-  dataSource.value.categories.find((category) => category.id === props.id)
+  findById(dataSource.value.categories, props.id)
 );
 
 const getForumsForCategory = (category: any) => {

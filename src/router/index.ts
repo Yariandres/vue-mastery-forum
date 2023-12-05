@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import sourceData from '../data.json';
+import findById from '../helpers/findById';
 
 const routes = [
   {
@@ -49,9 +50,7 @@ const routes = [
     component: () => import('../components/pages/PageThreadShow.vue'),
     props: true,
     beforeEnter(to: any, _, next: any) {
-      const threadExists = sourceData.threads.find(
-        (thread) => thread.id === to.params.id
-      );
+      const threadExists = findById(sourceData.threads, to.params.id);
 
       if (threadExists) {
         return next();

@@ -3,6 +3,7 @@ import { computed } from 'vue';
 import ThreadList from '../ThreadList.vue';
 import { storeToRefs } from 'pinia';
 import { useDataSource } from '../../store/dataSource';
+import findById from '../../helpers/findById';
 
 const store = useDataSource();
 const { dataSource } = storeToRefs(store);
@@ -12,7 +13,7 @@ const props = defineProps<{
 }>();
 
 const forum = computed(() => {
-  return dataSource.value.forums.find((forum) => forum.id === props.id);
+  return findById(dataSource.value.forums, props.id);
 });
 
 const treads = computed(() => {

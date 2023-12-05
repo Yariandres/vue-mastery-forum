@@ -4,6 +4,7 @@ import AppDate from './AppDate.vue';
 
 import { storeToRefs } from 'pinia';
 import { useDataSource } from '../store/dataSource';
+import findById from '../helpers/findById';
 
 const store = useDataSource();
 const { dataSource } = storeToRefs(store);
@@ -17,7 +18,7 @@ const users = computed(() => {
 });
 
 function userById(userId: string) {
-  return users.value.find((u: any) => u.id === userId);
+  return findById(users.value, userId);
 }
 </script>
 
