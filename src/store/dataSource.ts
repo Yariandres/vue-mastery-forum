@@ -32,6 +32,26 @@ export const useDataSource = defineStore('dataSource', {
     userThreadsCount() {
       return this.userThreads.length;
     },
+
+    thread(store) {
+      return (id: any) => {
+        const thread = findById(store.dataSource.threads, id);
+
+        return {
+          get author() {
+            return findById(store.dataSource.users, thread.userId);
+          },
+          get repliesCount() {
+            return thread.posts?.length - 1 || 0;
+          },
+          get contributorsCount() {
+            return thread.contributors?.length || 0;
+          },
+
+          ...thread,
+        };
+      };
+    },
   },
 
   actions: {
@@ -63,7 +83,10 @@ export const useDataSource = defineStore('dataSource', {
 
       if (!thread) return;
       thread.posts = thread?.posts || [];
-      thread?.posts.push(postId);
+
+      if (!thread?.posts.includes(postId)) {
+        thread?.posts.push(postId);
+      }
     },
 
     appendThreadToForum({ forumId, threadId }: any) {
@@ -71,7 +94,10 @@ export const useDataSource = defineStore('dataSource', {
 
       if (!forum) return;
       forum.threads = forum?.threads || [];
-      forum.threads?.push(threadId);
+
+      if (!forum?.threads.includes(threadId)) {
+        forum.threads?.push(threadId);
+      }
     },
 
     appentThreadToUser({ userId, threadId }: any) {
@@ -79,7 +105,20 @@ export const useDataSource = defineStore('dataSource', {
       if (!user) return;
 
       user.threads = user?.threads || [];
-      user?.threads.push(threadId);
+
+      if (!user?.threads.includes(threadId)) {
+        user?.threads.push(threadId);
+      }
+    },
+
+    appendContributorToThread({ userId, threadId }: any) {
+      const thread = findById(this.dataSource.threads, threadId);
+      if (!thread) return;
+      thread.contributors = thread?.contributors || [];
+
+      if (!thread?.contributors.includes(userId)) {
+        thread?.contributors.push(userId);
+      }
     },
 
     setThread(threads: any) {
