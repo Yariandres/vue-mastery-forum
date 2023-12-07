@@ -32,6 +32,18 @@ export const useDataSource = defineStore('dataSource', {
     userThreadsCount() {
       return this.userThreads.length;
     },
+
+    thread(store) {
+      return (id: any) => {
+        const thread = findById(store.dataSource.threads, id);
+        return {
+          ...thread,
+          author: 'Adam Jahr',
+          repliesCount: 0,
+          contributersCount: 1,
+        };
+      };
+    },
   },
 
   actions: {

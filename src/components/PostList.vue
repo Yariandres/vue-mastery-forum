@@ -17,6 +17,10 @@ const users = computed(() => {
   return dataSource.value.users;
 });
 
+const vTextToUpperCase = (el: any) => {
+  return el.textContent.toUpperCase();
+};
+
 function userById(userId: string) {
   return findById(users.value, userId);
 }

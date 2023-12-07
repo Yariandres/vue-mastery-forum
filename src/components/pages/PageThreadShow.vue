@@ -4,7 +4,7 @@ import PostList from '../PostList.vue';
 import PostEditor from '../PostEditor.vue';
 import { storeToRefs } from 'pinia';
 import { useDataSource } from '../../store/dataSource';
-import findById from '../../helpers/findById';
+// import findById from '../../helpers/findById';
 
 const store = useDataSource();
 const { dataSource } = storeToRefs(store);
@@ -23,7 +23,8 @@ const props = defineProps<{
 }>();
 
 const thread = computed<any>(() => {
-  return findById(dataSource.value.threads, props.id);
+  // return findById(dataSource.value.threads, props.id);
+  return store.thread(props.id);
 });
 
 const threadPosts = computed<any>(() => {
@@ -54,8 +55,15 @@ const addPost = (eventData: EventData) => {
         Edit Thread
       </router-link>
     </h1>
-    <post-list :posts="threadPosts" />
 
+    <div class="flex-row justify-between">
+      <p>By <a href="#" class="link-unstyled">Robin</a>, 2 hours ago</p>
+      <span class="hide-mobile text-faded text-small">
+        3 replies, by 3 contributors &#183;
+      </span>
+    </div>
+
+    <post-list :posts="threadPosts" />
     <div class="col-full">
       <post-editor @update:save="addPost" />
     </div>
