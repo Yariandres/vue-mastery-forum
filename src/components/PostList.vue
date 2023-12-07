@@ -17,10 +17,6 @@ const users = computed(() => {
   return dataSource.value.users;
 });
 
-const vTextToUpperCase = (el: any) => {
-  return el.textContent.toUpperCase();
-};
-
 function userById(userId: string) {
   return findById(users.value, userId);
 }
@@ -38,7 +34,9 @@ function userById(userId: string) {
           ><img class="avatar-large" :src="userById(post.userId)?.avatar" />
         </a>
 
-        <p class="desktop-only text-small">107 posts</p>
+        <p class="desktop-only text-small">
+          {{ userById(post.userId).userPostsCount }} posts
+        </p>
       </div>
 
       <div class="post-content">
